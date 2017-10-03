@@ -1,16 +1,43 @@
 package com.codecool.worldsqldojo;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class WorldDBCreatorTest {
-    @BeforeEach
-    void setUp() {
-        // TODO: create instance
+    @BeforeAll
+    public static void setUp() {
+        WorldDBCreator worldDBCreator = new WorldDBCreator();
+        String query = "";
+        PreparedStatement preparedStatement;
 
-        // TODO: insert data into db
+        try {
+            query = new String(Files.readAllBytes(Paths.get("src/test/resources/copy_data.sql")));
+        }
+        catch (FileNotFoundException exception) {
+            System.out.println("File not found!");
+            exception.printStackTrace();
+        }
+        catch (IOException exception) {
+            System.out.println("IO Error occured!");
+            exception.printStackTrace();
+        }
+
+        preparedStatement = worldDBCreator.getPreparedStatement(query);
+        try {
+            worldDBCreator.executeQuery(preparedStatement);
+        } catch (SQLException e) {
+            System.out.println("Data insertion failed.");
+            e.printStackTrace();
+        }
     }
 
     @Test
