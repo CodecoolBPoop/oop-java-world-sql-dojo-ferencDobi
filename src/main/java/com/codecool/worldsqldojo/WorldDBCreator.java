@@ -3,6 +3,7 @@ package com.codecool.worldsqldojo;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 import java.sql.SQLTimeoutException;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public class WorldDBCreator {
         return null;
     }
 
-    public void executeQuery(PreparedStatement statement) throws SQLException {
-        statement.execute();
+    public ResultSet executeQuery(PreparedStatement statement) throws SQLException {
+        return statement.executeQuery();
     }
 }
