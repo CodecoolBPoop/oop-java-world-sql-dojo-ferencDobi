@@ -1,3 +1,7 @@
+TRUNCATE TABLE city CASCADE;
+TRUNCATE TABLE country CASCADE;
+TRUNCATE TABLE countrylanguage CASCADE;
+
 COPY city (id, name, countrycode, district, population) FROM stdin;
 1	Kabul	AFG	Kabol	1780000
 2	Qandahar	AFG	Qandahar	237500
