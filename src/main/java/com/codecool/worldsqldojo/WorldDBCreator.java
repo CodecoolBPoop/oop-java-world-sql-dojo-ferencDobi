@@ -9,14 +9,32 @@ public class WorldDBCreator {
 
     public PreparedStatement getPreparedStatement(String query) {
 
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(
+                    DATABASE,
+                    DB_USER,
+                    DB_PASSWORD);
+        } catch (SQLException e) {
+            System.err.println("ERROR: Connection error.");
+            e.printStackTrace();
+        }
         return null;
     }
 
+    public void executeUpdate(String query) throws SQLException {
+        try (Connection connection = getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.executeUpdate();
+
+        } catch (SQLTimeoutException e) {
+            System.err.println("ERROR: SQL Timeout");
+        }
+    }
+
     public ResultSet executeQuery(String query) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD)) {
+        try (Connection connection = getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement(query);
             return statement.executeQuery();
