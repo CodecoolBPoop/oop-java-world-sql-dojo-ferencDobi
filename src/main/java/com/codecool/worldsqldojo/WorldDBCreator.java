@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class WorldDBCreator {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/world";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DB_USER = System.getenv("POSTGRES_DB_USER");
+    private static final String DB_PASSWORD = System.getenv("POSTGRES_DB_PASSWORD");
 
     public PreparedStatement getPreparedStatement(String query) {
         try (Connection conn =
