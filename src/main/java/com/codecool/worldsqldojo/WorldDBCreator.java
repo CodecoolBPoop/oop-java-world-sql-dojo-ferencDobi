@@ -1,12 +1,6 @@
 package com.codecool.worldsqldojo;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-
-import java.sql.SQLTimeoutException;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class WorldDBCreator {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/world";
